@@ -249,4 +249,33 @@ botonLimpiar.addEventListener("click", function() {
 
  // Mostrar los favoritos guardados al abrir la página.
 mostrarFavoritos();
+// ===== Modo oscuro / claro (reto extra) =====
+const botonTema = document.getElementById("theme-toggle");
+const CLAVE_TEMA = "rick-morty-tema";
 
+// Aplicar el tema: agrega o quita la clase "dark" del body y cambia el texto del botón.
+function aplicarTema(oscuro) {
+  document.body.classList.toggle("dark", oscuro);
+  botonTema.textContent = oscuro ? "☀️ Modo claro" : "🌙 Modo oscuro";
+}
+
+// Recuperar el tema guardado al abrir la página.
+let temaOscuro = false;
+try {
+  temaOscuro = localStorage.getItem(CLAVE_TEMA) === "dark";
+} catch (error) {
+  console.error("Error al recuperar el tema:", error);
+}
+aplicarTema(temaOscuro);
+
+// Cambiar de tema al hacer clic y guardar la preferencia.
+botonTema.addEventListener("click", function () {
+  const oscuro = !document.body.classList.contains("dark");
+  aplicarTema(oscuro);
+
+  try {
+    localStorage.setItem(CLAVE_TEMA, oscuro ? "dark" : "light");
+  } catch (error) {
+    console.error("Error al guardar el tema:", error);
+  }
+});
