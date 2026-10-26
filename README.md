@@ -134,8 +134,14 @@ No se hicieron modificaciones adicionales independientes a lo propuesto por la I
 
 ### 5. Reflexión: qué aprendimos usando IA
 
-_(Pendiente.)_
+El desarrollo de este proyecto nos permitió usar la inteligencia artificial como herramienta de apoyo para programar. Aprendimos a trabajar de forma colaborativa en GitHub, a organizar los avances con commits y a usar JavaScript para consultar una API, hacer búsquedas, aplicar filtros y guardar información con `localStorage`.
+
+También vimos que hay que revisar las respuestas de la IA, porque puede asumir cosas que no son ciertas: en nuestro caso, una rama que no existía y una primera versión de `cargarPersonajes()` que trataba el error 404 como una falla. Entender el código, y no solo copiarlo, fue lo que nos permitió detectar esos detalles y corregirlos. Esta experiencia nos dio más autonomía y nos ayudó a comprender mejor cómo se crea una página web interactiva.
 
 ## Dificultades
 
-_(Pendiente: agregar las dificultades que tuvimos durante el desarrollo.)_
+- Aprender a trabajar solo desde la interfaz web de GitHub (ramas, commits, Issues y Pull Requests), sin Visual Studio Code.
+- Confusión con las ramas: creímos que ya existía una rama de trabajo, pero el repositorio solo tenía `main`.
+- Saber qué líneas reemplazar al modificar funciones como `buscarPersonajes()` y `cargarPersonajes()` sin borrar otras partes del código. Se resolvió revisando cada cambio paso a paso, con capturas del editor de GitHub.
+- Diferenciar una búsqueda sin resultados (error 404 de la API) de un error real de conexión.
+- Coordinar el trabajo entre las dos: acordamos desde el inicio los `id` del HTML y la estructura de las tarjetas para que el CSS y el JavaScript funcionaran juntos.
