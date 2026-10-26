@@ -4,6 +4,31 @@ const API_URL = "https://rickandmortyapi.com/api/character";
 const contenedorPersonajes = document.getElementById("characters-container");
 const mensaje = document.getElementById("message");
 
+
+ // Obtener los elementos de la sección de favoritos.
+const contenedorFavoritos = document.getElementById("favorites-container");
+const mensajeFavoritos = document.getElementById("favorites-message");
+
+// Clave para guardar favoritos en el navegador.
+const CLAVE_FAVORITOS = "rick-morty-favoritos";
+
+// Recuperar los favoritos guardados anteriormente.
+let favoritos = [];
+
+try {
+  const guardados = JSON.parse(
+    localStorage.getItem(CLAVE_FAVORITOS) || "[]"
+  );
+
+  favoritos = Array.isArray(guardados) ? guardados : [];
+} catch (error) {
+  console.error("Error al recuperar favoritos:", error);
+}
+
+// Guardar los personajes mostrados actualmente.
+let personajesActuales = [];
+
+
 // Crear una tarjeta con los datos de un personaje.
 function crearTarjeta(personaje) {
   const tarjeta = document.createElement("article");
@@ -28,18 +53,77 @@ function crearTarjeta(personaje) {
 
   cuerpo.append(nombre, informacion);
 
-  const botonFavorito = document.createElement("button");
-  botonFavorito.className = "fav-btn";
-  botonFavorito.textContent = "⭐ Agregar a favoritos";
-  botonFavorito.disabled = true;
+  
+const botonFavorito = document.createElement("button");
+botonFavorito.className = "fav-btn";
+
+// Comprobar si el personaje ya está guardado.
+const guardado = favoritos.some((favorito) => favorito.id === personaje.id);
+
+botonFavorito.textContent = guardado
+  ? "⭐ Quitar de favoritos"
+  : "⭐ Agregar a favoritos";
+
+// Ejecutar la función al presionar el botón.
+botonFavorito.addEventListener("click", function() {
+  alternarFavorito(personaje);
+});
+
 
   tarjeta.append(imagen, cuerpo, botonFavorito);
 
   return tarjeta;
 }
 
+
+ // Mostrar los personajes guardados como favoritos.
+function mostrarFavoritos() {
+  contenedorFavoritos.replaceChildren();
+
+  if (favoritos.length === 0) {
+    mensajeFavoritos.textContent = "Todavía no tienes favoritos.";
+  } else {
+    mensajeFavoritos.textContent = "";
+  }
+
+  favoritos.forEach((personaje) => {
+    contenedorFavoritos.appendChild(crearTarjeta(personaje));
+  });
+}
+
+// Agregar o quitar un personaje de favoritos.
+function alternarFavorito(personaje) {
+  const guardado = favoritos.some(
+    (favorito) => favorito.id === personaje.id
+  );
+
+  const nuevosFavoritos = guardado
+    ? favoritos.filter((favorito) => favorito.id !== personaje.id)
+    : [...favoritos, personaje];
+
+  // Guardar los cambios en el navegador.
+  try {
+    localStorage.setItem(
+      CLAVE_FAVORITOS,
+      JSON.stringify(nuevosFavoritos)
+    );
+  } catch (error) {
+    console.error("Error al guardar favoritos:", error);
+    mensajeFavoritos.textContent = "No se pudieron guardar los favoritos.";
+    return;
+  }
+
+  favoritos = nuevosFavoritos;
+
+  // Actualizar las tarjetas y la sección de favoritos.
+  mostrarFavoritos();
+  mostrarPersonajes(personajesActuales);
+}
+
+
 // Mostrar los personajes recibidos de la API.
 function mostrarPersonajes(personajes) {
+  personajesActuales = personajes;
   contenedorPersonajes.replaceChildren();
 
   personajes.forEach((personaje) => {
@@ -48,29 +132,47 @@ function mostrarPersonajes(personajes) {
 }
 
 // Consultar los personajes mediante fetch().
+
 async function cargarPersonajes(url = API_URL) {
   mensaje.textContent = "Cargando personajes...";
   mensaje.classList.remove("error");
   contenedorPersonajes.replaceChildren();
+  personajesActuales = [];
 
   try {
     const respuesta = await fetch(url);
 
+    // La API responde 404 cuando no encuentra personajes.
+    if (respuesta.status === 404) {
+      mostrarPersonajes([]);
+      mensaje.textContent = "No se encontraron personajes con esos criterios.";
+      return;
+    }
+
+    // Detectar otros errores de la API.
     if (!respuesta.ok) {
       throw new Error(`Error HTTP: ${respuesta.status}`);
     }
 
     const datos = await respuesta.json();
 
+    if (!Array.isArray(datos.results) || datos.results.length === 0) {
+      mostrarPersonajes([]);
+      mensaje.textContent = "No se encontraron personajes.";
+      return;
+    }
+
+    // Mostrar los personajes encontrados.
     mostrarPersonajes(datos.results);
     mensaje.textContent = "";
 
   } catch (error) {
     console.error("Error al consultar la API:", error);
-    mensaje.textContent = "No se pudieron cargar los personajes.";
+    mensaje.textContent = "Falló la consulta. Intenta nuevamente.";
     mensaje.classList.add("error");
   }
 }
+
 
 // Ejecutar la consulta al abrir la página.
 cargarPersonajes();
@@ -144,4 +246,7 @@ botonLimpiar.addEventListener("click", function() {
 
   cargarPersonajes();
 });
+
+ // Mostrar los favoritos guardados al abrir la página.
+mostrarFavoritos();
 
