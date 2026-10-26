@@ -74,3 +74,30 @@ async function cargarPersonajes(url = API_URL) {
 
 // Ejecutar la consulta al abrir la página.
 cargarPersonajes();
+
+
+ // Obtener el buscador y su botón.
+const campoBusqueda = document.getElementById("search-input");
+const botonBusqueda = document.getElementById("search-btn");
+
+// Buscar personajes por nombre.
+function buscarPersonajes() {
+  const nombre = campoBusqueda.value.trim();
+
+  const url = nombre
+    ? `${API_URL}?name=${encodeURIComponent(nombre)}`
+    : API_URL;
+
+  cargarPersonajes(url);
+}
+
+// Buscar al hacer clic en el botón.
+botonBusqueda.addEventListener("click", buscarPersonajes);
+
+// Buscar también al presionar Enter.
+campoBusqueda.addEventListener("keydown", function(evento) {
+  if (evento.key === "Enter") {
+    buscarPersonajes();
+  }
+});
+
