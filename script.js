@@ -80,16 +80,44 @@ cargarPersonajes();
 const campoBusqueda = document.getElementById("search-input");
 const botonBusqueda = document.getElementById("search-btn");
 
+ // Obtener los filtros del HTML.
+const filtroEstado = document.getElementById("filter-status");
+const filtroEspecie = document.getElementById("filter-species");
+const filtroGenero = document.getElementById("filter-gender");
+const botonLimpiar = document.getElementById("clear-filters");
+
+
 // Buscar personajes por nombre.
+
 function buscarPersonajes() {
   const nombre = campoBusqueda.value.trim();
 
-  const url = nombre
-    ? `${API_URL}?name=${encodeURIComponent(nombre)}`
-    : API_URL;
+  // Preparar los parámetros de búsqueda.
+  const parametros = new URLSearchParams();
+
+  if (nombre) {
+    parametros.set("name", nombre);
+  }
+
+  if (filtroEstado.value) {
+    parametros.set("status", filtroEstado.value);
+  }
+
+  if (filtroEspecie.value) {
+    parametros.set("species", filtroEspecie.value);
+  }
+
+  if (filtroGenero.value) {
+    parametros.set("gender", filtroGenero.value);
+  }
+
+  // Construir la URL con los filtros seleccionados.
+  const consulta = parametros.toString();
+  const url = consulta ? `${API_URL}?${consulta}` : API_URL;
 
   cargarPersonajes(url);
 }
+
 
 // Buscar al hacer clic en el botón.
 botonBusqueda.addEventListener("click", buscarPersonajes);
@@ -99,5 +127,21 @@ campoBusqueda.addEventListener("keydown", function(evento) {
   if (evento.key === "Enter") {
     buscarPersonajes();
   }
+});
+
+
+ // Aplicar filtros cuando el usuario cambie una opción.
+filtroEstado.addEventListener("change", buscarPersonajes);
+filtroEspecie.addEventListener("change", buscarPersonajes);
+filtroGenero.addEventListener("change", buscarPersonajes);
+
+// Limpiar el buscador y todos los filtros.
+botonLimpiar.addEventListener("click", function() {
+  campoBusqueda.value = "";
+  filtroEstado.value = "";
+  filtroEspecie.value = "";
+  filtroGenero.value = "";
+
+  cargarPersonajes();
 });
 
