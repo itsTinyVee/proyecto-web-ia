@@ -77,7 +77,12 @@ _(Pendiente.)_
 
 ### 4. Modificación al código que podemos explicar
 
-_(Pendiente.)_
+Después de integrar el `script.js` (Pull Request #3), agregamos al final del archivo el bloque del modo oscuro. Ese commit cerró el Issue #1. El código se generó con ayuda de la IA; nosotras lo integramos, lo probamos y podemos explicarlo:
+
+- `document.body.classList.toggle("dark", oscuro)` agrega la clase `dark` al `body` cuando `oscuro` es `true` y la quita cuando es `false`. Con eso `style.css` cambia todos los colores.
+- La función `aplicarTema()` junta en un solo lugar el cambio de clase y el texto del botón (🌙 / ☀️), para no repetir código.
+- Al guardar en `localStorage` usamos `try/catch`, porque el navegador puede bloquear el almacenamiento (por ejemplo, en modo privado). Así, si falla, la página sigue funcionando.
+- Al abrir la página se lee la clave `rick-morty-tema` y se aplica el tema guardado.
 
 ### 5. Reflexión: qué aprendimos usando IA
 
