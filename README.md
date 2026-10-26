@@ -73,7 +73,7 @@ El primer mensaje para coordinar el trabajo indicaba que mi compañera trabajara
 
 ### 3. Error encontrado y cómo lo resolvimos
 
-_(Pendiente.)_
+Al coordinar el trabajo creímos que ya existía una rama de trabajo, pero al abrir el repositorio en GitHub el contador mostraba **1 Branch**: solo existía `main`. Lo detectamos revisando el contador de ramas. Lo resolvimos creando la rama `feature-script-js` directamente desde `main`, para que incluyera `index.html` y `style.css`, y desde ahí se abrió el Pull Request #3.
 
 ### 4. Modificación al código que podemos explicar
 
