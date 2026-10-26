@@ -1,0 +1,242 @@
+/* ===== Variables de color (modo claro por defecto) ===== */
+:root {
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --text: #1f2430;
+  --text-soft: #5b6475;
+  --primary: #2fa84f;
+  --primary-hover: #238a3e;
+  --border: #d9deea;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  --danger: #d64545;
+}
+
+/* ===== Modo oscuro: se activa agregando la clase "dark" al body ===== */
+body.dark {
+  --bg: #12151c;
+  --surface: #1c212b;
+  --text: #e8ebf2;
+  --text-soft: #a3acbd;
+  --primary: #4cc96d;
+  --primary-hover: #3aa957;
+  --border: #2e3544;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== Base ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  transition: background 0.3s, color 0.3s;
+}
+
+h1, h2 {
+  margin: 0;
+}
+
+h2 {
+  margin: 1.5rem 0 1rem;
+}
+
+/* ===== Encabezado ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.header h1 {
+  font-size: 1.5rem;
+}
+
+/* ===== Contenedor principal ===== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+/* ===== Botones, inputs y selects ===== */
+button,
+input,
+select {
+  font: inherit;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+button {
+  cursor: pointer;
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: var(--primary-hover);
+}
+
+#theme-toggle,
+#clear-filters {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+#theme-toggle:hover,
+#clear-filters:hover {
+  background: var(--border);
+}
+
+/* ===== Buscador y filtros ===== */
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.search-box {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.search-box input {
+  flex: 1;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.filters label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+/* ===== Mensajes (cargando, sin resultados, error) ===== */
+.message {
+  margin: 1rem 0;
+  text-align: center;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+
+.message.error {
+  color: var(--danger);
+}
+
+/* ===== Cuadrícula de tarjetas ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 1rem;
+}
+
+/* ===== Tarjeta de personaje ===== */
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.8rem;
+  flex: 1;
+}
+
+.card-name {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.card-info {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.fav-btn {
+  margin-top: auto;
+  width: 100%;
+  border-radius: 0;
+  padding: 0.7rem;
+}
+
+/* ===== Pie de página ===== */
+.footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  color: var(--text-soft);
+  font-size: 0.9rem;
+}
+
+.footer a {
+  color: var(--primary);
+}
+
+/* ===== Responsivo: celulares ===== */
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .search-box {
+    flex-direction: column;
+  }
+
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.75rem;
+  }
+}
