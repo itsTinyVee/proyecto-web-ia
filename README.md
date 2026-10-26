@@ -54,17 +54,22 @@ La página muestra personajes de la serie con su imagen y sus datos (estado, esp
 
 **Funcionalidad elegida:** modo oscuro y claro.
 
-_(Pendiente: explicar cómo funciona la modificación cuando esté implementada.)_
+**Cómo funciona:**
+- En `style.css` los colores están guardados como variables CSS (`--bg`, `--text`, etc.). La clase `body.dark` les asigna otros valores, así que toda la página cambia de color sin duplicar estilos.
+- En `script.js`, el botón `#theme-toggle` usa `classList.toggle("dark")` para agregar o quitar esa clase en el `body` y cambia su texto (🌙 Modo oscuro / ☀️ Modo claro).
+- La elección se guarda en `localStorage` con la clave `rick-morty-tema`. Al abrir la página se lee ese valor y se aplica el tema, así que se conserva al recargar.
 
 ## Uso de inteligencia artificial
 
 ### 1. Prompts importantes
 
-_(Pendiente: agregar los 3 prompts más importantes que usamos.)_
+1. Se subió el PDF con las instrucciones del proyecto y se pidió: *"Dime qué se va a hacer, que sea una checklist, y si es en equipo."* Resultado: lista de requisitos, entregables y preguntas de la presentación.
+2. *"Prepara un mensaje para mi compañera: ella hace el back y yo el front. Dile qué va a crear y cuántos commits."* Resultado: reparto de trabajo, ids del HTML acordados y estructura de las tarjetas.
+3. *"Vamos a empezar con el archivo index.html."* Resultado: la estructura HTML con buscador, filtros, favoritos y los ids que usa el JavaScript.
 
 ### 2. Respuesta de la IA que requirió correcciones
 
-_(Pendiente: describir qué respondió la IA, qué estaba mal y cómo lo corregimos.)_
+El primer mensaje para coordinar el trabajo indicaba que mi compañera trabajara en una rama ya creada. Al revisar GitHub, el repositorio mostraba **1 Branch** (solo `main`), así que esa rama no existía. Aunque hubiera existido, se habría creado antes de que `index.html` estuviera subido. La IA corrigió la indicación: crear la rama `feature-script-js` **desde `main`** para partir de la estructura ya subida.
 
 ### 3. Error encontrado y cómo lo resolvimos
 
