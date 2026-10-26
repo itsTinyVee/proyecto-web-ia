@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explorador Rick and Morty</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <h1>Explorador Rick and Morty</h1>
+    <button id="theme-toggle" type="button" aria-label="Cambiar entre modo claro y oscuro">🌙 Modo oscuro</button>
+  </header>
+
+  <main class="container">
+
+    <!-- Buscador y filtros -->
+    <section class="controls" aria-label="Búsqueda y filtros">
+      <div class="search-box">
+        <input id="search-input" type="text" placeholder="Buscar personaje por nombre..." aria-label="Buscar personaje">
+        <button id="search-btn" type="button">Buscar</button>
+      </div>
+
+      <div class="filters">
+        <label>
+          Estado
+          <select id="filter-status">
+            <option value="">Todos</option>
+            <option value="alive">Vivo</option>
+            <option value="dead">Muerto</option>
+            <option value="unknown">Desconocido</option>
+          </select>
+        </label>
+
+        <label>
+          Especie
+          <select id="filter-species">
+            <option value="">Todas</option>
+            <option value="Human">Humano</option>
+            <option value="Alien">Alienígena</option>
+            <option value="Robot">Robot</option>
+            <option value="Humanoid">Humanoide</option>
+            <option value="Animal">Animal</option>
+          </select>
+        </label>
+
+        <label>
+          Género
+          <select id="filter-gender">
+            <option value="">Todos</option>
+            <option value="female">Femenino</option>
+            <option value="male">Masculino</option>
+            <option value="genderless">Sin género</option>
+            <option value="unknown">Desconocido</option>
+          </select>
+        </label>
+
+        <button id="clear-filters" type="button">Limpiar filtros</button>
+      </div>
+    </section>
+
+    <!-- Mensajes: cargando, sin resultados o error de la API -->
+    <p id="message" class="message" role="status" aria-live="polite"></p>
+
+    <!-- Resultados de la API -->
+    <section aria-label="Personajes">
+      <h2>Personajes</h2>
+      <div id="characters-container" class="grid"></div>
+    </section>
+
+    <!-- Favoritos (se guardan en localStorage) -->
+    <section aria-label="Favoritos">
+      <h2>⭐ Mis favoritos</h2>
+      <p id="favorites-message" class="message"></p>
+      <div id="favorites-container" class="grid"></div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>Datos de <a href="https://rickandmortyapi.com" target="_blank" rel="noopener">Rick and Morty API</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
