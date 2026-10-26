@@ -61,31 +61,6 @@ La página muestra personajes de la serie con su imagen y sus datos (estado, esp
 
 ## Uso de inteligencia artificial
 
-### 1. Prompts importantes
-
-1. Se subió el PDF con las instrucciones del proyecto y se pidió: *"Dime qué se va a hacer, que sea una checklist, y si es en equipo."* Resultado: lista de requisitos, entregables y preguntas de la presentación.
-2. *"Prepara un mensaje para mi compañera: ella hace el back y yo el front. Dile qué va a crear y cuántos commits."* Resultado: reparto de trabajo, ids del HTML acordados y estructura de las tarjetas.
-3. *"Vamos a empezar con el archivo index.html."* Resultado: la estructura HTML con buscador, filtros, favoritos y los ids que usa el JavaScript.
-
-### 2. Respuesta de la IA que requirió correcciones
-
-El primer mensaje para coordinar el trabajo indicaba que mi compañera trabajara en una rama ya creada. Al revisar GitHub, el repositorio mostraba **1 Branch** (solo `main`), así que esa rama no existía. Aunque hubiera existido, se habría creado antes de que `index.html` estuviera subido. La IA corrigió la indicación: crear la rama `feature-script-js` **desde `main`** para partir de la estructura ya subida.
-
-### 3. Error encontrado y cómo lo resolvimos
-
-Al coordinar el trabajo creímos que ya existía una rama de trabajo, pero al abrir el repositorio en GitHub el contador mostraba **1 Branch**: solo existía `main`. Lo detectamos revisando el contador de ramas. Lo resolvimos creando la rama `feature-script-js` directamente desde `main`, para que incluyera `index.html` y `style.css`, y desde ahí se abrió el Pull Request #3.
-
-### 4. Modificación al código que podemos explicar
-
-Después de integrar el `script.js` (Pull Request #3), agregamos al final del archivo el bloque del modo oscuro. Ese commit cerró el Issue #1. El código se generó con ayuda de la IA; nosotras lo integramos, lo probamos y podemos explicarlo:
-
-- `document.body.classList.toggle("dark", oscuro)` agrega la clase `dark` al `body` cuando `oscuro` es `true` y la quita cuando es `false`. Con eso `style.css` cambia todos los colores.
-- La función `aplicarTema()` junta en un solo lugar el cambio de clase y el texto del botón (🌙 / ☀️), para no repetir código.
-- Al guardar en `localStorage` usamos `try/catch`, porque el navegador puede bloquear el almacenamiento (por ejemplo, en modo privado). Así, si falla, la página sigue funcionando.
-- Al abrir la página se lee la clave `rick-morty-tema` y se aplica el tema guardado.
-
-## Uso de inteligencia artificial
-
 Usamos dos herramientas: **Claude** (Valentina: estructura, estilos, README y modo oscuro) y **ChatGPT** (Melanie: `script.js`).
 
 ### 1. Prompts importantes
